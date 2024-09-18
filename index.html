@@ -1,0 +1,1293 @@
+     <!-- MARCAÇÃO HTML -->
+<div style="width: 100%;">
+
+    <!-- Importação do Font Awesome para uso de ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <!-- Área de Pesquisa -->
+    <div class="pesquisa">
+        <!-- Seção de Ferramentas com links para perguntas frequentes, glossário e mapa do site -->
+        <div class="ferramentas">
+            <a href="https://www.itapetininga.sp.gov.br/prefeitura/perguntas-frequentes">
+                <div><i id="icon_item" class="fa-solid fa-circle-question"></i></div>
+            </a>
+            <a href="https://itapetininga.sp.gov.br/glossario">
+                <div><i id="icon_item" class="fas fa-book"></i></div>
+            </a>
+            <a href="https://www.itapetininga.sp.gov.br/mapa-site">
+                <div><i id="icon_item" class="fa-solid fa-sitemap"></i></div>
+            </a>
+        </div>
+        <!-- Campo de texto para busca com resultados exibidos dinamicamente -->
+        <input type="text" id="Buscapesquisa" placeholder="Buscar links...">
+        <div id="results"></div>
+    </div>
+
+    <!-- Botão "Voltar" e título que muda conforme a categoria -->
+    <div id="titulo-botao">
+        <!-- Título da categoria carregado dinamicamente via JS -->
+        <h3 id="tituloCategoria"><!-- Título carregado conforme a categoria --></h3>
+        <!-- Botão estilizado com Bootstrap e ícone Font Awesome -->
+        <button class="button_back btn btn-labeled btn-success">
+            <span class="btn-label" style="text-align: right;">
+                <i class="fa fa-arrow-left"></i>
+            </span>Voltar</button>
+    </div>
+
+    <!-- Container das categorias de transparência -->
+    <div id="containerTransp">
+        <!-- Categoria de Planejamento e Prestação de Contas -->
+        <div class="categoriaTransp">
+            <i id="icon_cat" class="fas fa-chart-line"></i>
+            <h3>Planejamento e Prestação<br>de Contas</h3>
+            <p>Planos de desenvolvimento da cidade e a prestação de contas das atividades financeiras da prefeitura.
+                Relatórios sobre execução orçamentária e gestão fiscal.</p>
+            <!-- Botão que aciona função JS para acessar a categoria -->
+            <button id="CAT_PPC" class="button_cat">Acesse</button>
+        </div>
+
+        <!-- Categoria de Governo Digital e Acesso à Informação -->
+        <div class="categoriaTransp">
+            <i id="icon_cat" class="fas fa-globe"></i>
+            <h3>Governo Digital e Acesso<br>à Informação</h3>
+            <p>Explore as iniciativas de governo digital e o acesso a serviços públicos. Ferramentas para promover a
+                transparência e a participação cidadã.</p>
+            <button id="CAT_GDA" class="button_cat">Acesse</button>
+        </div>
+
+        <!-- Categoria de Compras, Licitação e Contratos -->
+        <div class="categoriaTransp">
+            <i id="icon_cat" class="fas fa-shopping-cart"></i>
+            <h3>Compras, Licitação e<br>Contratos</h3>
+            <p>Acompanhe compras públicas, processos licitatórios e contratos firmados. Acesso a editais, atas de
+                licitação e documentos relacionados.</p>
+            <button id="CAT_CLC" class="button_cat">Acesse</button>
+        </div>
+
+        <!-- Categoria de Saúde -->
+        <div class="categoriaTransp">
+            <i id="icon_cat" class="fas fa-hospital"></i>
+            <h3>Saúde</h3>
+            <p>Informações sobre os serviços de saúde, programas de atendimento, campanhas de prevenção e relatórios de
+                investimentos na área da saúde.</p>
+            <button id="CAT_SAU" class="button_cat">Acesse</button>
+        </div>
+
+        <!-- Categoria de Educação -->
+        <div class="categoriaTransp">
+            <i id="icon_cat" class="fas fa-graduation-cap"></i>
+            <h3>Educação</h3>
+            <p>Detalhes sobre políticas educacionais, programas e projetos em escolas municipais. Dados sobre
+                investimentos e ações para melhorar a qualidade da educação.</p>
+            <button id="CAT_EDU" class="button_cat">Acesse</button>
+        </div>
+
+        <!-- Categoria de Recursos Humanos -->
+        <div class="categoriaTransp">
+            <i id="icon_cat" class="fas fa-users"></i>
+            <h3>Recursos Humanos</h3>
+            <p>Transparência na gestão de pessoal. Informações sobre concursos, processos seletivos, folha de pagamento
+                e políticas de valorização dos servidores.</p>
+            <button id="CAT_RH" class="button_cat">Acesse</button>
+        </div>
+    </div>
+
+    <!-- Elementos das categorias que serão carregados dinamicamente via JavaScript -->
+    <div id="elemento_cat">
+        <!-- Itens da categoria serão adicionados aqui dinamicamente -->
+    </div>
+
+    <!-- Seção Sistema Integrado de Transparência -->
+    <div class="SI">
+        <h2>Sistema Integrado Transparência</h2>
+        <!-- Link para o Sistema Integrado de Transparência em nova aba -->
+        <a href="https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA" target="_blank">
+            <button class="button_SI">Acesse aqui</button>
+        </a>
+    </div>
+</div>
+
+
+      <!-- BASE DE DADOS COM OS LINKS -->
+      <script>
+        const categories = [
+            // Planejamento e Prestação de Contas
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,82518fe9-d16d-460a-ae92-cb3c0b912147',
+                iconClass: 'fas fa-credit-card',
+                text: 'Adiantamento',
+                altText: 'Adiantamento | Sistema Integrado'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/28/aplicacao-de-recursos-proprios-em-saude/',
+                iconClass: 'fas fa-stethoscope',
+                text: 'Aplicação De Recursos Próprios Em Saúde',
+                altText: 'O link refere-se aos recursos gastos com saúde pelo município, destacando a aplicação mínima constitucional de 15% destinados à área da saúde, conforme os requisitos legais. No site, você encontrará informações detalhadas sobre a destinação desses recursos e o cumprimento dos percentuais mínimos constitucionais.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/28/aplicacao-de-recursos-proprios-em-saude',
+                iconClass: 'fas fa-school',
+                text: 'Aplicação Dos Recursos Próprios Em Ensino',
+                altText: 'O link refere-se aos recursos aplicados na educação pelo município, com ênfase na aplicação mínima constitucional de 25% destinados à educação. No site, você encontrará detalhes sobre como esses recursos são direcionados para atender os percentuais mínimos constitucionais exigidos por lei.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/29/audiencias-publicas-metas-fiscais/',
+                iconClass: 'fas fa-chart-line',
+                text: 'Audiências Públicas - Metas Fiscais',
+                altText: 'O link refere-se às informações sobre a Lei de Responsabilidade Fiscal (LRF) e as audiências públicas realizadas pelo município para garantir o cumprimento das exigências legais. No site institucional, você pode acessar dados e relatórios relacionados à responsabilidade fiscal e verificar informações sobre as audiências que discutem a aplicação e o controle desses recursos.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/32/audiencias-publicas-planejamento/',
+                iconClass: 'fas fa-calendar-alt',
+                text: 'Audiências Públicas de Planejamento',
+                altText: 'O link refere-se às Audiências Públicas de Planejamento, onde são discutidos temas como o Orçamento Público. No site institucional, você pode acessar informações sobre as audiências, acompanhar o processo de planejamento e entender como as decisões orçamentárias são tomadas em conformidade com as demandas da população.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/1/balancetes/',
+                iconClass: 'fas fa-file-invoice',
+                text: 'Balancetes',
+                altText: 'O link refere-se ao Balancete da Despesa e Receita do município, onde são apresentados os detalhes financeiros sobre a arrecadação de receitas e a aplicação das despesas. No site institucional, você pode acessar esses balancetes para obter uma visão clara e transparente das finanças públicas.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/25/balancos/',
+                iconClass: 'fas fa-file',
+                text: 'Balanços',
+                altText: 'O link refere-se aos Balanços Orçamentário, Financeiro, Patrimonial e Econômico do município, com destaque para as variações patrimoniais, a dívida flutuante e a dívida fundada. No site institucional, você encontrará a demonstração detalhada dessas dívidas e o impacto nas finanças municipais, promovendo transparência e clareza na gestão pública.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,70a87d65-b293-467a-8d1e-de74b98ced18',
+                iconClass: 'fas fa-money-bill-alt',
+                text: 'Despesa Extra Orçamentária',
+                altText: 'O link refere-se às Despesas Extra Orçamentárias, disponíveis no Sistema Integrado, módulo contábil, onde você pode acessar informações sobre Despesa Extra Orçamentária, Empenho, Empenhamento, Liquidação e Pagamento.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,fc562030-d5d9-41bb-9d67-d76d7e6a0723',
+                iconClass: 'fas fa-wallet',
+                text: 'Despesa Orçamentária',
+                altText: 'O link refere-se às Despesas Orçamentárias, disponíveis no Sistema Integrado, módulo contábil, onde você pode acessar informações sobre Despesa Extra Orçamentária, Empenho, Empenhamento, Liquidação e Pagamento.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,7902d6e4-d6f2-4931-be33-6b28b491949b',
+                iconClass: 'fas fa-hand-holding-usd',
+                text: 'Despesas - Transferências Especiais - Emenda',
+                altText: 'O link refere-se às Despesas com Transferências Especiais, que são recursos provenientes de emendas parlamentares. Esses recursos são transferidos diretamente da União ou do Estado para o Município. No Sistema Integrado, você pode acessar informações detalhadas sobre essas Transferências Especiais.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,b03f74a2-84a1-4495-9145-45efd58ef119',
+                iconClass: 'fas fa-virus',
+                text: 'Despesas | COVID19',
+                altText: 'O link refere-se às Despesas relacionadas à COVID-19, incluindo informações sobre empenho, empenhamento, liquidação e pagamento. No Sistema Integrado, você pode acessar detalhes específicos dessas despesas, garantindo transparência e acompanhamento das ações financeiras destinadas ao enfrentamento da pandemia.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,7282d867-a316-47d8-9087-48bd7508ec1b',
+                iconClass: 'fas fa-calendar-day',
+                text: 'Diária',
+                altText: 'O link refere-se às informações sobre Diárias, onde são detalhadas as despesas relacionadas ao pagamento de diárias a servidores e colaboradores. No Sistema Integrado, você pode acessar dados completos sobre essas diárias, garantindo transparência e controle das despesas públicas.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/35/julgamento-das-contas-do-poder-executivo/',
+                iconClass: 'fas fa-file-archive',
+                text: 'Julgamento Das Contas Do Poder Executivo',
+                altText: 'O link refere-se ao Julgamento das Contas do Poder Executivo e à Aprovação das Contas pelo Poder Legislativo (Câmara). Essas informações estão disponíveis no site institucional, onde você pode acompanhar a avaliação e decisão sobre as contas públicas do município.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/26/parecer-do-tribunal-de-contas/',
+                iconClass: 'fas fa-file-archive',
+                text: 'Parecer Do Tribunal De Contas',
+                altText: 'O link refere-se ao Julgamento das Contas do Poder Executivo, realizado pelo Tribunal de Contas do Estado de São Paulo (TCESP). No site institucional, você pode acessar informações detalhadas sobre o processo de avaliação e as decisões tomadas pelo TCESP em relação às contas públicas do município.'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/15/pecas-de-planejamento/',
+                iconClass: 'fas fa-file-alt',
+                text: 'Peças De Planejamento | PPA | LDO | LOA',
+                altText: 'Leis orçamentárias, Lei Orçamentária Anual, Plano Plurianual, Lei de Diretrizes Orçamentárias, Anexos das Leis Orçamentárias, site institucional'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,bb3e698e-84f2-4442-b3b1-5e3b67ee89bf',
+                iconClass: 'fas fa-dollar-sign',
+                text: 'Receita - Transferências Especiais - Emenda',
+                altText: 'Receita - Transferências Especiais - Emenda, sistema integrado'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,f0daa92e-6f65-4563-b3d1-45ba9deab5fb',
+                iconClass: 'fas fa-donate',
+                text: 'Receita Extra Orçamentária',
+                altText: 'Receita Extra Orçamentária, sistema integrado'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,00ae0fc9-ec17-4f93-984d-ab8144908b72',
+                iconClass: 'fas fa-chart-bar',
+                text: 'Receita Orçamentária',
+                altText: 'Receita Orçamentária, sistema integrado'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/36/relatorios-de-gestao-ou-atividades/',
+                iconClass: 'fas fa-file-alt',
+                text: 'Relatórios de Gestão ou Atividades',
+                altText: 'Relatórios de Gestão ou Atividades, site institucional'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/14/repasses-ao-terceiro-setor/',
+                iconClass: 'fas fa-hand-holding-heart',
+                text: 'Repasses Ao Terceiro Setor',
+                altText: 'Repasses Ao Terceiro Setor, site institucional'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,626d0d60-bd1e-49f9-aed4-75c8704e41df',
+                iconClass: 'fas fa-receipt',
+                text: 'Repasses Recebidos',
+                altText: 'Repasses Recebidos, sistema integrado'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,ec7acc7f-4ef6-4abe-b27b-151569bc473d',
+                iconClass: 'fas fa-exchange-alt',
+                text: 'Repasses Transferidos',
+                altText: 'Repasses Transferidos, sistema integrado'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,bfa6b13a-7426-4250-8550-58108f98d37d',
+                iconClass: 'fas fa-calendar-minus',
+                text: 'Resto a Pagar',
+                altText: 'Resto a Pagar, sistema integrado'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/27/relatorio-de-gestao-fiscal/',
+                iconClass: 'fas fa-file-contract',
+                text: 'RGF - Relatório De Gestão Fiscal',
+                altText: 'RGF - Relatório De Gestão Fiscal, site institucional'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/2/relatorio-resumido-da-execucao-orcamentaria/',
+                iconClass: 'fas fa-file-alt',
+                text: 'RREO - Relatório Resumido Da Execução Orçamentária',
+                altText: 'RREO - Relatório Resumido Da Execução Orçamentária, site institucional'
+            },
+            {
+                className: 'PPC',
+                href: 'https://www.lei13019.com.br/inicial.php?orgao_id=10&amp;orgao_nome=Prefeitura+Municipal+de+Itapetininga&amp;orgao_estado=SP&amp;orgao_cidade=ITAPETINGA&amp;orgao_logomarca=jpg&amp;pasta=sp%2Fitapetininga%2F&amp;sair=true',
+                iconClass: 'fas fa-hands-helping',
+                text: 'Terceiro Setor - Social',
+                altText: 'Terceiro Setor - Social, SICONVINHO  - Sistema de Parcerias entre Prefeitura e Entidades'
+            },
+            {
+                className: 'PPC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,d8eb4d0d-5b3b-429b-ad64-544e5940e982',
+                iconClass: 'fas fa-plane',
+                text: 'Viagens',
+                altText: 'Viagens, sistema integrado'
+            },
+
+            //Governo Digital e Acesso
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/carta-servico/categoria',
+                iconClass: 'fas fa-file-alt',
+                text: 'Carta de Serviços',
+                altText: 'Carta de Serviços, site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/comissao',
+                iconClass: 'fas fa-users',
+                text: 'Comissões e Conselhos',
+                altText: 'Comissões e Conselhos | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://itapetininga.sp.gov.br/glossario',
+                iconClass: 'fas fa-book',
+                text: 'Glossário',
+                altText: 'Glossário | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/pagina/29/lgpd',
+                iconClass: 'fas fa-shield-alt',
+                text: 'Lei Geral de Proteção de Dados | LGPD',
+                altText: 'Lei Geral de Proteção de Dados | LGPD | DPO - Data Protection Officer | Encarregado de Dados | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/mapa-site',
+                iconClass: 'fa-solid fa-sitemap',
+                text: 'Mapa do Site',
+                altText: 'Mapa do Site | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/pagina/39/ods',
+                iconClass: 'fas fa-globe',
+                text: 'Objetivos do Desenvolvimento Sustentável - ODS',
+                altText: 'Objetivos do Desenvolvimento Sustentável - ODS | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/pagina/66/servicos/sub-pagina/32/',
+                iconClass: 'fas fa-comments',
+                text: 'Ouvidoria',
+                altText: 'Ouvidoria | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/pagina/8/ouvidoria-municipal-sus',
+                iconClass: 'fas fa-stethoscope',
+                text: 'Ouvidoria SUS',
+                altText: 'Ouvidoria SUS | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/prefeitura/perguntas-frequentes',
+                iconClass: 'fas fa-question-circle',
+                text: 'Perguntas Frequentes',
+                altText: 'Perguntas Frequentes | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/pagina/40/pdti',
+                iconClass: 'fas fa-laptop-code',
+                text: 'Plano Diretor de Tecnologia da Informação',
+                altText: 'Plano Diretor de Tecnologia da Informação | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/carta-servico/84/sac-156-servico-de-atendimento-ao-cidadao/',
+                iconClass: 'fas fa-headset',
+                text: 'SAC 156 - Serviço de Atendimento ao Cidadão',
+                altText: 'SAC 156 - Serviço de Atendimento ao Cidadão | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/prefeitura/departamento',
+                iconClass: 'fas fa-building',
+                text: 'Secretarias Municipais',
+                altText: 'Secretarias Municipais | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/diario-oficial-eletronico',
+                iconClass: 'fas fa-newspaper',
+                text: 'Semanário Eletrônico Oficial | Atos Oficiais',
+                altText: 'Semanário Eletrônico Oficial | Atos Oficiais | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/carta-servico/98/sic-servico-de-informacao-ao-cidadao/',
+                iconClass: 'fas fa-info-circle',
+                text: 'SIC - Serviço de Informação ao Cidadão',
+                altText: 'SIC - Serviço de Informação ao Cidadão | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://www.itapetininga.sp.gov.br/pagina/38/siafic',
+                iconClass: 'fas fa-calculator',
+                text: 'Sistema Único e Integrado de Execução Orçamentária, Administração Financeira e Controle',
+                altText: 'Sistema Único e Integrado de Execução Orçamentária, Administração Financeira e Controle  | SIAFIC | site institucional'
+            },
+            {
+                className: 'GDA',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA',
+                iconClass: 'fas fa-eye',
+                text: 'Transparência | Sistema Integrado',
+                altText: 'Transparência | Sistema Integrado'
+            },
+            {
+                className: 'GDA',
+                href: 'https://aldirblanc.itapetininga.sp.gov.br/',
+                iconClass: 'fas fa-shield-alt',
+                text: 'Lei Aldir Blanc',
+                altText: ' Projetos Culturais, Mapa Cultural, Lei nº 14.017 de 29 de junho de 2020'
+            },
+            {
+                className: 'GDA',
+                href: 'https://paulogustavo.itapetininga.sp.gov.br/',
+                iconClass: 'fas fa-shield-alt',
+                text: 'Lei Paulo Gustavo',
+                altText: 'Projetos Culturais, Mapa Cultural, Lei Complementar nº 195/2022'
+            },
+
+            // Compras, Licitação e Contratos
+            {
+                className: 'CLC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,c719becd-e512-4495-92d1-2bd049dc3ee2',
+                iconClass: 'fas fa-shopping-cart',
+                text: 'Compras e Licitações',
+                altText: 'Compras e Licitações | Sistema Integrado'
+            },
+            {
+                className: 'CLC',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,fe5442c0-d172-45d6-96b0-0e81e99ed4ff',
+                iconClass: 'fas fa-scroll',
+                text: 'Contratos',
+                altText: 'Contratos | Sistema Integrado'
+            },
+            {
+                className: 'CLC',
+                href: 'https://www.itapetininga.sp.gov.br/licitacao',
+                iconClass: 'fas fa-file-alt',
+                text: 'Licitação, Atas e Contratos',
+                altText: 'Licitação, Atas e Contratos | Site Institucional'
+            },
+            {
+                className: 'CLC',
+                href: 'https://pncp.gov.br/app/editais?q=municipio%20de%20itapetininga&status=recebendo_proposta&pagina=1',
+                iconClass: 'fa-solid fa-money-check',
+                text: 'Portal Nacional de Contratações Públicas',
+                altText: 'Portal Nacional de Contratações Públicas | GovBR'
+            },
+
+            // SAÚDE
+
+            {
+                className: 'SAU',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/33/audiencia-publica-secretaria-municipal-de-saude/',
+                iconClass: 'fas fa-users-cog',
+                text: 'Audiência Pública - Gestão em Saúde',
+                altText: 'Audiência Pública - Gestão em Saúde | site institucional'
+            },
+            {
+                className: 'SAU',
+                href: 'https://www.itapetininga.sp.gov.br/covid',
+                iconClass: 'fas fa-virus',
+                text: 'Boletim | Covid19',
+                altText: 'Boletim | Covid19 | site institucional'
+            },
+            {
+                className: 'SAU',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,dfadf689-cc0a-4109-9606-66f3ef139a66',
+                iconClass: 'fas fa-handshake',
+                text: 'Convênios Saúde',
+                altText: 'Convênios Saúde | Sistema Integrado'
+            },
+            {
+                className: 'SAU',
+                href: 'https://www.itapetininga.sp.gov.br/prefeitura/detalhe-departamento/12/saude/',
+                iconClass: 'fas fa-hospital-alt',
+                text: 'Unidades Pertencentes a Saúde',
+                altText: 'Unidades Pertencentes a Saúde | site institucional'
+            },
+
+
+            // Educação
+            {
+                className: 'EDU',
+                href: 'https://www.itapetininga.sp.gov.br/conta-publica/categoria/28/aplicacao-de-recursos-proprios-em-saude/',
+                iconClass: 'fas fa-stethoscope',
+                text: 'Unidades Pertencentes a Educação',
+                altText: 'Unidades Pertencentes a Educação, Escolas Municipais | site institucional'
+            },
+            {
+                className: 'EDU',
+                href: 'https://www.itapetininga.sp.gov.br/prefeitura/detalhe-departamento/5/educacao/',
+                iconClass: 'fas fa-school',
+                text: 'Unidades Pertencentes a Educação',
+                altText: 'Unidades Pertencentes a Educação | site institucional'
+            },
+
+            // RECURSOS HUMANOS - RH
+            {
+                className: 'RH',
+                href: 'https://www.itapetininga.sp.gov.br/concurso/categoria/25/concurso/',
+                iconClass: 'fas fa-graduation-cap',
+                text: 'Concursos',
+                altText: 'Concursos | site institucional'
+            },
+            {
+                className: 'RH',
+                href: 'https://www.itapetininga.sp.gov.br/concurso/categoria/24/processo-seletivo/',
+                iconClass: 'fas fa-clipboard-list',
+                text: 'Processos Seletivos',
+                altText: 'Processos Seletivos | site institucional'
+            },
+            {
+                className: 'RH',
+                href: 'https://transparencia.portalmunicipal.inf.br/wpportal.aspx?87,aFAsMrHPnNmvVE9xaeAEwA,a20349fa-ab06-4b94-bc36-14d93e413856',
+                iconClass: 'fas fa-users',
+                text: 'Recursos Humanos',
+                altText: 'Recursos Humanos | Folha de Pagamento | Estagiários'
+            },
+            // Adicione aqui outros itens da categoria
+            /*
+            {
+                className: '',
+                href: '',
+                iconClass: '',
+                text: '',
+                altText: ''
+            }, 
+            */
+
+        ];
+
+    </script>
+
+     <!-- REGRA DE NEGÓCIO PARA EXPERIÊNCIA DE USUÁRIO -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const searchInput = document.getElementById('Buscapesquisa'); // Campo de busca
+        const categoriasContainer = document.getElementById('containerTransp'); // Container que exibe as categorias
+        const elementosContainer = document.getElementById('elemento_cat'); // Container para os itens filtrados
+        const botaoVoltar = document.querySelector('.button_back'); // Botão de "Voltar" visível após a pesquisa
+        const categoriasButtons = document.querySelectorAll('.button_cat'); // Botões de cada categoria
+        const tituloCategoria = document.getElementById('tituloCategoria'); // Título da categoria selecionada
+
+        // Esconde o botão de "Voltar" e o título da categoria por padrão
+        botaoVoltar.style.display = 'none';
+        tituloCategoria.style.display = 'none';
+
+        // Função para renderizar itens de uma categoria específica quando o botão da categoria é clicado
+        function renderCategoryItems(categoryClassName) {
+            elementosContainer.innerHTML = ''; // Limpa os itens de categoria anteriores
+
+            // Define o título da categoria com base na classe da categoria
+            switch (categoryClassName) {
+                case 'PPC':
+                    tituloCategoria.innerText = 'Planejamento e Prestação de Contas';
+                    break;
+                case 'GDA':
+                    tituloCategoria.innerText = 'Governo Digital e Acesso à Informação';
+                    break;
+                case 'CLC':
+                    tituloCategoria.innerText = 'Compras, Licitação e Contratos';
+                    break;
+                case 'SAU':
+                    tituloCategoria.innerText = 'Saúde';
+                    break;
+                case 'EDU':
+                    tituloCategoria.innerText = 'Educação';
+                    break;
+                case 'RH':
+                    tituloCategoria.innerText = 'Recursos Humanos';
+                    break;
+                default:
+                    tituloCategoria.innerText = '';
+                    break;
+            }
+
+            // Filtra os itens que pertencem à categoria selecionada
+            const filteredItems = categories.filter(item => item.className === categoryClassName);
+
+            // Renderiza os itens filtrados como links, ou exibe uma mensagem se não houver itens
+            if (filteredItems.length > 0) {
+                filteredItems.forEach(item => {
+                    const link = document.createElement('a');
+                    link.className = `${item.className} linkDiv`; // Classe com base na categoria
+                    link.target = '_blank'; // Abre o link em uma nova aba
+                    link.href = item.href; // URL do link
+
+                    const div = document.createElement('div');
+                    div.className = 'item_cat'; // Classe de estilo para o item
+
+                    const icon = document.createElement('i');
+                    icon.className = item.iconClass; // Classe do ícone FontAwesome
+                    div.appendChild(icon);
+
+                    const paragraph = document.createElement('p');
+                    let texto = item.text;
+                    // Limita o texto do link a 35 caracteres
+                    if (texto.length > 35) {
+                        paragraph.innerText = texto.substring(0, 35) + '...';
+                    } else {
+                        paragraph.textContent = texto;
+                    }
+                    div.appendChild(paragraph);
+
+                    link.appendChild(div);
+                    elementosContainer.appendChild(link);
+                });
+            } else {
+                // Exibe uma mensagem caso nenhum resultado seja encontrado
+                elementosContainer.innerHTML = `<div class="resultadoNaoEncontrado"><img  src="https://www.itapetininga.sp.gov.br/public/admin/globalarq/uploads/images/images_pages/termo-nao-encontrado.png" alt="Não encontramos resultados para o termo pesquisado. Tente novamente com palavras diferentes ou revise a ortografia." class="notresults"><h4>Não encontramos resultados para o termo pesquisado. Tente novamente com palavras diferentes ou revise a ortografia.</h4></div>`;
+            }
+        }
+
+        // Evento de input para a pesquisa: filtra os itens conforme o usuário digita
+        searchInput.addEventListener('input', () => {
+            const searchQuery = searchInput.value.toLowerCase().trim();
+
+            // Exibe os itens que correspondem à pesquisa se a query tiver pelo menos 3 caracteres
+            if (searchQuery.length >= 3) {
+                categoriasContainer.style.display = 'none'; // Esconde as categorias
+                elementosContainer.style.display = 'grid'; // Mostra os resultados filtrados
+                botaoVoltar.style.display = 'block'; // Exibe o botão de "Voltar"
+                tituloCategoria.style.display = 'none'; // Esconde o título da categoria durante a pesquisa
+
+                elementosContainer.innerHTML = ''; // Limpa resultados anteriores
+
+                // Filtra os itens que correspondem ao termo pesquisado
+                const filteredItems = categories.filter(item => {
+                    return item.text.toLowerCase().includes(searchQuery) || item.altText.toLowerCase().includes(searchQuery);
+                });
+
+                // Renderiza os itens encontrados ou exibe uma mensagem de "não encontrado"
+                if (filteredItems.length > 0) {
+                    filteredItems.forEach(item => {
+                        const link = document.createElement('a');
+                        link.className = `${item.className} linkDiv`;
+                        link.target = '_blank';
+                        link.href = item.href;
+
+                        const div = document.createElement('div');
+                        div.className = 'item_cat';
+
+                        const icon = document.createElement('i');
+                        icon.className = item.iconClass;
+                        div.appendChild(icon);
+
+                        const paragraph = document.createElement('p');
+                        let texto = item.text;
+                        if (texto.length > 35) {
+                            paragraph.innerText = texto.substring(0, 35) + '...';
+                        } else {
+                            paragraph.textContent = texto;
+                        }
+                        div.appendChild(paragraph);
+
+                        link.appendChild(div);
+                        elementosContainer.appendChild(link);
+                    });
+                } else {
+                    // Exibe mensagem de "nenhum resultado encontrado"
+                    elementosContainer.innerHTML = `<div class="resultadoNaoEncontrado"><img src="https://www.itapetininga.sp.gov.br/public/admin/globalarq/uploads/images/images_pages/termo-nao-encontrado.png" alt="Não encontramos resultados para o termo pesquisado. Tente novamente com palavras diferentes ou revise a ortografia." class="notresults"><h4>Não encontramos resultados para o termo pesquisado. Tente novamente com palavras diferentes ou revise a ortografia.</h4></div>`;
+                }
+            } else {
+                // Restaura a visualização inicial quando o termo pesquisado tem menos de 3 caracteres
+                categoriasContainer.style.display = 'grid';
+                elementosContainer.style.display = 'none';
+                botaoVoltar.style.display = 'none';
+                tituloCategoria.style.display = "none";
+            }
+        });
+
+        // Evento de clique para os botões de categorias: exibe os itens da categoria clicada
+        categoriasButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const categoryClassName = button.id.replace('CAT_', ''); // Obtém a classe da categoria a partir do ID do botão
+                categoriasContainer.style.display = 'none';
+                elementosContainer.style.display = 'grid';
+                botaoVoltar.style.display = 'block';
+                tituloCategoria.style.display = 'block';
+                window.scrollTo({
+                    top: 400, // Rola a página para cima após clicar na categoria
+                    behavior: 'smooth'
+                });
+                renderCategoryItems(categoryClassName); // Renderiza os itens da categoria clicada
+            });
+        });
+
+        // Evento de clique no botão de "Voltar": restaura a visualização inicial com as categorias
+        botaoVoltar.addEventListener('click', () => {
+            categoriasContainer.style.display = 'grid'; // Mostra novamente as categorias
+            elementosContainer.style.display = 'none'; // Esconde os itens filtrados
+            botaoVoltar.style.display = 'none'; // Esconde o botão de "Voltar"
+            tituloCategoria.style.display = 'none'; // Esconde o título da categoria
+            searchInput.value = ''; // Limpa o campo de busca
+        });
+    });
+
+    // Limita o texto de cada item da categoria a 35 caracteres e adiciona tooltip se o texto for maior
+    document.querySelectorAll('.item_cat p').forEach(p => {
+        let text = p.innerText;
+        if (text.length > 35) {
+            p.innerText = text.substring(0, 35) + '...';
+            p.setAttribute('title', text); // Adiciona o texto completo como tooltip
+        }
+    });
+
+    // Função para rolar a página suavemente até o campo de busca
+    let timeout;
+
+    function scrollToSearchField() {
+        const yOffset = -10; // Ajusta o scroll para dar um pequeno espaço acima do campo de busca
+        const y = this.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+        window.scrollTo({ top: y, behavior: 'smooth' });
+        resetTimer(); // Reseta o timer para que a pesquisa expire após 15 segundos
+    }
+
+    // Reseta o timer da pesquisa
+    function resetTimer() {
+        clearTimeout(timeout);
+        timeout = setTimeout(function () {
+            document.getElementById('Buscapesquisa').value = ''; // Limpa o campo de busca
+            document.getElementById('containerTransp').style.display = 'grid'; // Mostra as categorias novamente
+            document.getElementById('elemento_cat').style.display = 'none'; // Esconde os itens filtrados
+            botaoVoltar.style.display = 'none'; // Esconde o botão de "Voltar"
+        }, 15000); // Tempo de 15 segundos para resetar a pesquisa
+    }
+
+    // Adiciona eventos para focar no campo de busca e reseta o timer ao digitar
+    const searchField = document.getElementById('Buscapesquisa');
+    searchField.addEventListener('focus', scrollToSearchField);
+    searchField.addEventListener('click', scrollToSearchField);
+    searchField.addEventListener('input', resetTimer); // Reseta o timer ao digitar
+
+    // Limita o texto dos itens da categoria a 35 caracteres novamente (duplicação removida se necessário)
+    document.querySelectorAll('.item_cat p').forEach(p => {
+        let text = p.innerText;
+        if (text.length > 35) {
+            p.innerText = text.substring(0, 35) + '...';
+            p.setAttribute('title', text);
+        }
+    });
+</script>
+
+   
+   <!-- FOLHA DE ESTILO -->
+   <style>
+     /* Estilo para o contêiner de ferramentas */
+    .ferramentas {
+        width: 100%;
+        display: flex;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 30px;
+        text-align: center;
+        justify-content: flex-end; /* Alinha os ícones ao canto esquerdo */
+
+    }
+
+    .ferramentas #icon_item {
+        /*Estilo padrão para o ícone*/
+        background-color: rgba(0, 0, 0, 0);
+        color: #a3a3a3;
+    }
+
+    /*Estilo ao passar o mouse sobre o ícone*/
+    .ferramentas #icon_item:hover {
+        background-color: rgba(0, 0, 0, 0);
+        color: #dbdbdb;
+    }
+
+    #modaltela {
+        display: none;
+        position: fixed;
+        background-color: #000000;
+        margin-top: -60vh;
+        margin-left: -15px;
+        opacity: 0.8;
+        width: 100vh;
+        height: 110vh;
+    }
+
+    .tooltip {
+
+        display: none;
+        color: var(--cor-primaria);
+        max-height: 240px;
+        max-width: 380px;
+        margin-top: -290px;
+        margin-left: -10px;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+        border-radius: 15px;
+        padding: 25px;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.24);
+
+    }
+
+    .tooltip:after {
+        /*Triangulo*/
+        content: "";
+        width: 0;
+        height: 0;
+        position: absolute;
+        border-left: 20px solid transparent;
+        border-right: 20px solid transparent;
+        /*Faz seta "apontar para baixo. Definir o valor como 'top' fará ela "apontar para cima" */
+        /*Aqui entra a cor da "aba" do balão */
+        border-top: 30px solid #f1f1f1;
+        /*top: -20px;*/
+        /*localização. Experimente alterar para 'bottom'*/
+        bottom: -20px;
+        left: 5%;
+    }
+
+    /* Estilo para mensagem de resultado não encontrado */
+    .resultadoNaoEncontrado {
+        grid-column: span 4;
+        text-align: center;
+        width: 100%;
+    }
+ 
+    /* Estilo da imagem quando o resultado não é encontrado */
+    .resultadoNaoEncontrado img {
+        max-width: 40%;
+        margin: auto;
+    }
+ 
+    /* Estilo do botão de link */
+    .link1-button {
+        display: block;
+        margin: auto;
+        color: #ffffff;
+        background-color: #308F8F;
+        border-radius: 20px;
+        border: none;
+        padding: 10px;
+        width: 100%;
+        margin-top: 15px;
+        cursor: pointer;
+        /* Adiciona o cursor de mão */
+
+    }
+ 
+    /* Estilo para telas com largura até 768px */
+    @media (max-width: 768px) {
+        .tooltip {
+            background-color: #F4F5FA;
+            margin-left: -7px;
+            max-height: 320px;
+            max-width: 320px;
+            margin-top: -25vh;
+            color: #1C5454;
+        }
+
+        .tooltip:after {
+            display: none;
+        }
+
+        .tooltip span,
+        .tooltip-content {
+            font-size: 11pt;
+            text-align: justify;
+        }
+
+          /* Estilo do botão de link para telas menores */
+        .link1-button {
+            display: block;
+            margin: auto;
+            color: #ffffff;
+            background-color: #308F8F;
+            border-radius: 20px;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            margin-top: 15px;
+            cursor: pointer;
+        }
+
+        /* Estilo do card para telas menores */
+        .card {
+            flex: 1 1 45%;
+            max-width: 45%; /* Duas caixas por linha em telas menores */
+        }
+
+        /* Ajuste do container para duas colunas em dispositivos móveis */
+        #containerTransp {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        }
+
+        /* Estilo dos itens da classe PPC */
+        .PPC .item_cat {
+        flex: none; /* Garante que os itens não se estiquem mais do que o necessário */
+        }
+    }
+    
+ 
+    /* Estilo para títulos com borda azul à esquerda */
+    .linkDiv.titulos {
+        border-left: 6px solid blue;
+    }
+
+    .tooltip-close {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: none;
+        border: none;
+        font-size: 1.5em;
+        cursor: pointer;
+    }
+
+    /* Estilo para elementos com classe SI e pesquisa */
+    .SI,
+    .pesquisa {
+        border-radius: 20px;
+        background-image: url('https://www.itapetininga.sp.gov.br/admin/js/plugins/ckfinder/core/connector/php/connector.php?command=ImagePreview&lang=pt-br&type=Imagens&currentFolder=%2F&hash=b88d13fa091bf7c0&fileName=banner_SIT.png&size=1824x873&date=20240730104924');
+        text-align: center;
+        padding: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.13);
+    }
+
+    /* Títulos dentro de SI e pesquisa com cor branca */
+    .SI h2,
+    .pesquisa h2 {
+        color: white;
+    }
+
+    /* Estilo para o botão dentro de SI */
+    .button_SI {
+        color: #000000;
+        background-color: #ffffff;
+        border-radius: 20px;
+        border: none;
+        padding: 10px;
+        width: 200px;
+        margin-top: 10px;
+    }
+
+    /* Estilo para o botão de categoria */
+    .button_cat {
+        color: #ffffff;
+        background-color: #308F8F;
+        border-radius: 20px;
+        border: none;
+        padding: 10px;
+        width: 100%;
+    }
+
+    /* Estilo ao passar o mouse sobre o botão de categoria */
+    .button_cat:hover {
+        background-color: #2a7c7c;
+    }
+
+    /* Margem superior para a pesquisa e centralização de texto */
+    .pesquisa {
+        margin-top: 50px;
+        text-align: center;
+    }
+
+    /* Estilo para o campo de pesquisa */
+    #Buscapesquisa {
+        padding: 10px;
+        border-radius: 20px;
+        border: 1px solid rgba(0, 0, 0, 0.13);
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Estilo para o container principal, utilizando grid para layout */
+    #containerTransp {
+        margin-top: 30px;
+        margin-bottom: 50px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: auto;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    /* Estilo para categorias dentro do container */
+    .categoriaTransp {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+        border-radius: 20px;
+        background-color: rgb(255, 255, 255);
+        text-align: center;
+        padding: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.13);
+    }
+
+    /* Estilo comum para categorias e itens de categoria */
+    .categoriaTransp,
+    .item_cat {
+        border: 1px solid rgba(0, 0, 0, 0.13);
+        border-radius: 15px;
+        background-color: #ffffff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        padding: 20px; /* Aumenta o padding interno */
+        margin-bottom: 20px; /* Adiciona espaçamento entre os itens */
+}
+
+    /* Estilo para ícones dentro das categorias e itens de categoria */
+    .categoriaTransp i,
+    #icon_item {
+        font-size: 30px;
+        color: #1C5454;
+        background-color: #F4F5FA;
+        border-radius: 50%;
+        padding: 30px;
+    }
+
+    .categoriaTransp, .item_cat {
+        border: 1px solid rgba(0, 0, 0, 0.13);
+        border-radius: 15px;
+        background-color: #ffffff;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+     /* Animação ao passar o mouse */
+     .categoriaTransp:hover, .item_cat:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Ajuste de Fonte */
+    .categoriaTransp i, .item_cat i {
+        font-size: 24px;
+    }
+
+    .categoriaTransp p, .item_cat p {
+        font-size: 16px;
+    }
+
+    /* Estilo específico para ícones dentro de itens de categoria */
+    .item_cat i,
+    #icon_item {
+        font-size: 20px;
+        color: #1C5454;
+        background-color: #F4F5FA;
+        border-radius: 50%;
+        padding: 20px;
+    }
+
+    /* Estilo para o container de elementos de categoria */
+    #elemento_cat {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        align-content: start;
+        gap: 20px;
+        margin-bottom: 50px;
+    }
+
+    /* Estilo para itens de categoria dentro do grid */
+    .item_cat {
+        display: flex;
+        height: auto;
+        gap: 15px;
+        border-radius: 10px;
+        background-color: rgb(255, 255, 255);
+        padding: 15px;
+        border: 1px solid rgba(0, 0, 0, 0.13);
+        align-items: center;
+    }
+
+    /* Estilo para títulos dentro do grid, ocupando duas colunas */
+    .titulos {
+        grid-column: span 2;
+    }
+
+    /* Estilo para o contêiner de títulos sem bordas e com fundo transparente */
+    .divtitulos {
+        border-radius: 0;
+        border: none;
+        padding: 0px;
+        margin-top: 20px;
+        background-color: rgba(255, 255, 255, 0);
+    }
+
+    /* Estilo para o container do título e botão */
+    #titulo-botao {
+        display: flex;
+        justify-content: flex-start;
+        margin-bottom: 20px;
+        margin-top: 10px;
+        padding: 10px;
+    }
+
+    /* Estilo para o título dentro do container */
+    #titulo-botao h3 {
+        width: 90%;
+    }
+
+    /* Estilo para o botão de voltar */
+    .button_back {
+        padding: 0px !important;
+        width: 96px;
+
+    }
+
+    /* Estilo para o texto dentro do botão de voltar */
+    .button_back span {
+        padding: 5px;
+        margin: 0px !important;
+    }
+
+    /* Estilos para telas com largura máxima de 900px */
+    @media (max-width: 900px) {
+
+         /* Ajusta o grid do container para ter duas colunas */
+        #containerTransp {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* Ajusta o título para ocupar duas colunas */
+        .titulos {
+            grid-column: span 2;
+        }
+
+         /* Ajusta a largura da caixa de pesquisa */
+        #Buscapesquisa {
+            width: 90%;
+        }
+
+        /* Ajusta o grid dos elementos de categoria para ter duas colunas */
+        #elemento_cat {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        /* Ajusta os itens de categoria para ter altura e fonte específicas */
+        .item_cat {
+            height: 150px; /* Mantém um tamanho maior para visibilidade */
+            gap: 15px; /* Mantém espaçamento interno */
+            font-size: 18px;
+    }
+    }
+
+    /* Estilos para telas com largura máxima de 600px */
+    @media (max-width: 600px) {
+
+         /* Ajusta o grid do container para ter duas colunas e reduz o espaçamento entre itens */
+        #containerTransp {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+        gap: 15px;
+    }
+
+        /* Ajusta o grid dos elementos de categoria para ter duas colunas e reduz o espaçamento entre itens */
+        #elemento_cat {
+        grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+        gap: 15px;
+    }
+
+     /* Ajusta os itens de categoria para uma orientação de coluna e centraliza o texto */
+        .item_cat {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+        padding: 15px;
+        font-size: 16px;
+    }
+    .PPC .item_cat {
+        flex: none; /* Garante que os itens não se estiquem mais do que o necessário */
+    }
+
+    .item_cat p {
+        font-size: 0.8rem !important; /* Diminui o tamanho da fonte para categorias */
+    }
+
+    .item_cat i {
+        font-size: 15px !important; /* Mantém o ícone menor em dispositivos móveis */
+    }
+
+    /* Estilo para o botão de voltar em telas pequenas */
+    .button_back {
+        display: flex;
+        align-items: center; /* Centraliza o conteúdo verticalmente */
+        justify-content: flex-start; /* Alinha o ícone e o texto à esquerda */
+        background-color: #28a745; /* Cor de fundo verde */
+        border: none;
+        border-radius: 5px; /* Bordas arredondadas */
+        width: auto; /* O tamanho do botão se adapta ao conteúdo */
+        padding: 10px 20px; /* Espaçamento interno para uma aparência melhor */
+        margin: 20px 0; /* Espaçamento superior e inferior */
+        color: white;
+    }
+
+     /* Ajusta o tamanho do ícone dentro do botão de voltar */
+    .button_back i {
+        font-size: 18px; /* Tamanho do ícone */
+        margin-right: -4px; /* Espaço entre o ícone e o texto */
+    }
+
+     /* Ajusta o tamanho do texto dentro do botão de voltar */
+    .button_back span {
+        font-size: 16px; /* Tamanho do texto */
+    }
+
+     /* Oculta o texto dentro dos elementos de categoria no container */
+    #containerTransp .categoriaTransp p {
+        display: none !important; /* Força a ocultação do texto */
+    }
+
+    }
+
+    /* Estilos para telas com largura máxima de 480px */
+    @media (max-width: 480px) {
+
+         /* Ajusta o layout das cartas para ocupar toda a largura disponível */
+        .card {
+            flex: 1 1 100%;
+            max-width: 100%; /* Uma caixa por linha em telas muito pequenas */
+        }
+
+         /* Ajusta o layout dos itens de categoria para orientação vertical e centraliza o texto */
+        .item_cat {
+            flex-direction: column; /* Alinha conteúdo verticalmente */
+            text-align: center; /* Centraliza o texto */
+            font-size: 20px;
+        }
+
+          /* Ajusta o tamanho dos ícones dentro dos itens de categoria */
+        .item_cat i {
+            font-size: 1.2rem !important;
+            padding: 10px; /* Ajusta o padding do ícone */
+        }
+
+         /* Ajusta o tamanho da fonte dos parágrafos dentro dos itens de categoria */
+        .item_cat p {
+            font-size: 0.8rem !important; /* Reduz o tamanho da fonte */
+        }
+
+        /* Ajusta o layout do container para uma única coluna */
+        #containerTransp {
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+
+          /* Ajusta o tamanho da fonte dos parágrafos dentro de .categoriaTransp e .item_cat */
+        .categoriaTransp p, .item_cat p {
+            font-size: 15px;
+        }
+
+           /* Ajusta o tamanho dos ícones dentro de .categoriaTransp e .item_cat */
+        .categoriaTransp i, .item_cat i {
+            font-size: 18px;
+        }
+
+         /* Ajusta o layout das subcategorias para ter duas colunas */
+        .subcategories-container {
+            grid-template-columns: repeat(2, 1fr); /* Duas colunas */
+        }
+
+         /* Ajusta o tamanho da fonte e o padding das subcategorias */
+        .subcategory {
+            font-size: 12px !important;
+            padding: 10px; 
+        }
+
+         /* Ajusta o botão de voltar para um tamanho menor */
+        .button_back {
+            width: 100px; 
+        }
+
+         /* Ajusta o tamanho do texto e do ícone dentro do botão de voltar */
+        .button_back span {
+            font-size: 12px; 
+        }
+
+        .button_back i {
+            font-size: 8px; /* Ícone menor */
+        }    
+    }
+
+    
+</style>
